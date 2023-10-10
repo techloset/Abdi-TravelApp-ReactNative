@@ -12,39 +12,14 @@ import {
 import React, {useState} from 'react';
 import ratio from '../styles/consts/ratio';
 import {Color, FontFamily} from '../styles/consts/GlobalStyles';
-import categories from '../components/categories';
+import categories from '../library/consts/categories';
+import BookingHeader from '../components/BookingHeader';
 
 const BookingScreen = ({navigation}) => {
   const [currentScreen, setCurrentScreen] = useState(0);
   const [ratingHover, setRatingHover] = useState(false);
   const [overlayHover, setOverlayHover] = useState(false);
   const categoriesEdited = categories.slice(currentScreen, currentScreen + 1);
-
-  const BookingHeader = () => {
-    return (
-      <View style={styles.headContainer}>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.goBack();
-          }}>
-          <Image
-            style={styles.headerIcon}
-            source={require('../assets/images/icon/backBtn.png')}
-          />
-        </TouchableOpacity>
-        <View style={styles.leftHeader}>
-          <Image
-            style={styles.headerIcon}
-            source={require('../assets/images/icon/share.png')}
-          />
-          <Image
-            style={styles.headerIcon}
-            source={require('../assets/images/icon/heart.png')}
-          />
-        </View>
-      </View>
-    );
-  };
 
   return (
     <SafeAreaView>
@@ -90,7 +65,7 @@ const BookingScreen = ({navigation}) => {
               onPress={() => {
                 setCurrentScreen(0);
               }}>
-              <Text style={styles.categoryTabText}>Hotel</Text>
+              <Text style={styles.categoryTabText}>Hotels</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.Tab}
@@ -120,7 +95,14 @@ const BookingScreen = ({navigation}) => {
                       <ImageBackground
                         style={
                           ratingHover
-                            ? [styles.image, {transform: 'scale(1.2)'}]
+                            ? [
+                                styles.image,
+                                {
+                                  transform: 'scale(1.2)',
+                                  elevation: 25,
+                                  borderRadius: 30,
+                                },
+                              ]
                             : styles.image
                         }
                         source={item.image}>
@@ -167,15 +149,7 @@ const BookingScreen = ({navigation}) => {
                         }
                         source={item.image}>
                         <View style={styles.imageOverlay}>
-                          <Text
-                            style={{
-                              fontFamily: FontFamily.poppinsSemiBold,
-                              fontSize: ratio.fontPixel(17),
-                              lineHeight: ratio.fontPixel(17.652),
-                              color: Color.white,
-                            }}>
-                            10+
-                          </Text>
+                          <Text style={styles.overlayText}>10+</Text>
                         </View>
                       </ImageBackground>
                     </TouchableOpacity>
@@ -224,6 +198,12 @@ const BookingScreen = ({navigation}) => {
 
 const styles = StyleSheet.create({
   conBtn: {
+    fontFamily: FontFamily.poppinsSemiBold,
+    fontSize: ratio.fontPixel(17),
+    lineHeight: ratio.fontPixel(17.652),
+    color: Color.white,
+  },
+  conBtn: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
@@ -232,7 +212,7 @@ const styles = StyleSheet.create({
     height: ratio.widthPixel(44),
     backgroundColor: Color.primary,
     borderRadius: 24,
-    marginTop: 31,
+    marginTop: 30,
     paddingVertical: 10,
     paddingHorizontal: 30,
   },
@@ -241,6 +221,7 @@ const styles = StyleSheet.create({
     fontSize: ratio.fontPixel(16),
     lineHeight: ratio.fontPixel(24),
     letterSpacing: ratio.fontPixel(0.1),
+    color: Color.white,
   },
   conBtnContainer: {
     justifyContent: 'center',
@@ -248,7 +229,6 @@ const styles = StyleSheet.create({
   },
   details: {
     fontSize: ratio.fontPixel(14),
-    // fontWeight: '500',
     lineHeight: ratio.fontPixel(20),
     letterSpacing: ratio.fontPixel(0.1),
     color: Color.black,
@@ -258,8 +238,7 @@ const styles = StyleSheet.create({
   infoText: {
     fontFamily: FontFamily.poppinsRegular,
     color: Color.bGrey,
-    fontSize: ratio.fontPixel(14),
-    width: ratio.widthPixel(310),
+    fontSize: ratio.fontPixel(15),
   },
   image: {
     justifyContent: 'flex-end',
@@ -277,6 +256,8 @@ const styles = StyleSheet.create({
   imageContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
+    height: ratio.widthPixel(215),
   },
   ratingContainer: {
     width: '100%',
@@ -284,10 +265,10 @@ const styles = StyleSheet.create({
     height: ratio.widthPixel(44),
     borderRadius: 22.567,
     borderTopLeftRadius: 0,
-    elevation: 3,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingVertical: 13,
+    paddingTop: 6.77,
+    paddingBottom: 11.28,
   },
   star: {
     width: ratio.widthPixel(18.053),
@@ -363,23 +344,7 @@ const styles = StyleSheet.create({
   baliContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  headerIcon: {
-    width: ratio.widthPixel(24),
-  },
-  leftHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    gap: 24,
-  },
-  headContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingHorizontal: 16,
-    paddingVertical: 20,
-    position: 'absolute',
-    top: 20,
-    width: '100%',
+    gap: 8,
   },
   bgImage: {
     height: ratio.heightPixel(385),

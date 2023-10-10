@@ -11,8 +11,9 @@ import {
 import React, {useState} from 'react';
 import {Color, FontFamily} from '../styles/consts/GlobalStyles';
 import ratio from '../styles/consts/ratio';
-import imagesData from '../components/imagesData';
-import facilities from '../components/facilities';
+import imagesData from '../library/consts/imagesData';
+import facilities from '../library/consts/facilities';
+import RoomHeader from '../components/RoomHeader';
 
 const RoomScreen = ({navigation}) => {
   const [currentScreen, setCurrentScreen] = useState(0);
@@ -34,35 +35,7 @@ const RoomScreen = ({navigation}) => {
       return;
     }
   };
-  // header
-  const RoomHeader = () => {
-    return (
-      <View style={styles.headContainer}>
-        <View style={styles.rightHeader}>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.goBack();
-            }}>
-            <Image
-              style={styles.headerIcon}
-              source={require('../assets/images/icon/backBtn.png')}
-            />
-          </TouchableOpacity>
-          <Text style={styles.bookingText}>Booking</Text>
-        </View>
-        <View style={styles.leftHeader}>
-          <Image
-            style={styles.headerIcon}
-            source={require('../assets/images/icon/share.png')}
-          />
-          <Image
-            style={styles.headerIcon}
-            source={require('../assets/images/icon/heart.png')}
-          />
-        </View>
-      </View>
-    );
-  };
+
   return (
     <View>
       <ScrollView>
@@ -259,6 +232,7 @@ const styles = StyleSheet.create({
     fontSize: ratio.fontPixel(16),
     lineHeight: ratio.fontPixel(24),
     letterSpacing: ratio.fontPixel(0.1),
+    color: Color.white,
   },
   nightText: {
     color: Color.white,
@@ -294,7 +268,7 @@ const styles = StyleSheet.create({
   facilities_Text: {
     color: Color.black,
     fontFamily: FontFamily.poppinsRegular,
-    fontSize: ratio.fontPixel(14),
+    fontSize: ratio.fontPixel(12),
     lineHeight: ratio.fontPixel(20),
     letterSpacing: ratio.fontPixel(0.4),
     alignSelf: 'center',
@@ -339,6 +313,7 @@ const styles = StyleSheet.create({
     fontFamily: FontFamily.poppinsRegular,
     fontSize: ratio.fontPixel(14),
     lineHeight: ratio.fontPixel(17),
+    color: Color.white,
   },
   detBtn: {
     backgroundColor: Color.primary,
@@ -423,6 +398,8 @@ const styles = StyleSheet.create({
     fontFamily: FontFamily.poppinsMedium,
     fontSize: ratio.fontPixel(15),
     lineHeight: ratio.fontPixel(17.652),
+    color: Color.white,
+    opacity: 0.6,
   },
   smallImageContainer: {
     flexDirection: 'row',
@@ -455,36 +432,5 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     borderRadius: 30,
     gap: 1,
-  },
-  headerIcon: {
-    width: ratio.widthPixel(24),
-  },
-  bookingText: {
-    fontFamily: FontFamily.poppinsSemiBold,
-    fontSize: ratio.fontPixel(20),
-    color: Color.white,
-  },
-  leftHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    gap: 24,
-  },
-  rightHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    gap: 16,
-    height: ratio.widthPixel(28),
-  },
-  headContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingHorizontal: 16,
-    paddingVertical: 20,
-    width: '100%',
-    backgroundColor: Color.grey,
-    position: 'absolute',
-    zIndex: 100,
   },
 });

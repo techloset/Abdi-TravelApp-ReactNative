@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import React, {useState} from 'react';
 import {Color, FontFamily} from '../styles/consts/GlobalStyles';
-import places from '../components/places';
+import places from '../library/consts/places';
 import ratio from '../styles/consts/ratio';
 
 const HomeScreen = ({navigation}) => {
@@ -128,104 +128,109 @@ const HomeScreen = ({navigation}) => {
       {/* ---------------2nd section---------------- */}
 
       {/* <ScrollView> */}
-      <ScrollView contentContainerStyle={styles.infoContainer}>
-        {placesEdited.map((place, i) => {
-          return (
-            <View key={i}>
-              <Image style={styles.infoImage} source={place.image} />
-              <Text style={styles.details}>Details</Text>
-              {read ? (
-                <TouchableOpacity onPress={handleRead}>
-                  <Text style={styles.infoText}>{place.details}</Text>
+      <ScrollView>
+        <View style={styles.infoContainer}>
+          {placesEdited.map((place, i) => {
+            return (
+              <View key={i}>
+                <Image style={styles.infoImage} source={place.image} />
+                <Text style={styles.details}>Details</Text>
+                {read ? (
+                  <TouchableOpacity onPress={handleRead}>
+                    <Text style={styles.infoText}>{place.details}</Text>
+                  </TouchableOpacity>
+                ) : (
+                  <TouchableOpacity onPress={handleRead}>
+                    <Text style={styles.infoText}>
+                      {place.detailsLess}{' '}
+                      <Text
+                        style={{
+                          color: Color.black,
+                          fontFamily: FontFamily.poppinsMedium,
+                        }}>
+                        Read More
+                      </Text>
+                    </Text>
+                  </TouchableOpacity>
+                )}
+              </View>
+            );
+          })}
+
+          {/* dock */}
+          {read && (
+            <View style={styles.bottomContainer}>
+              {currentScreen == '1' ? (
+                <TouchableOpacity
+                  style={styles.bottomBtn}
+                  onPress={handleChange}>
+                  <Text style={styles.bottomBtnText}>Back</Text>
                 </TouchableOpacity>
               ) : (
-                <TouchableOpacity onPress={handleRead}>
-                  <Text style={styles.infoText}>
-                    {place.detailsLess}{' '}
-                    <Text
-                      style={{
-                        color: Color.black,
-                        fontFamily: FontFamily.poppinsMedium,
-                      }}>
-                      Read More
-                    </Text>
-                  </Text>
-                </TouchableOpacity>
+                <Text style={[{width: 85}]}></Text>
               )}
-            </View>
-          );
-        })}
-
-        {/* dock */}
-        {read ? (
-          <View style={styles.bottomContainer}>
-            {currentScreen == '1' ? (
+              <View
+                style={[
+                  styles.bottomBtn,
+                  {
+                    backgroundColor: '#C3CFE0',
+                    width: ratio.widthPixel(129),
+                    borderRadius: 100,
+                  },
+                ]}>
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate('Booking');
+                  }}>
+                  <Text style={styles.bottomBtnText}>Learn more</Text>
+                </TouchableOpacity>
+              </View>
               <TouchableOpacity style={styles.bottomBtn} onPress={handleChange}>
-                <Text style={styles.bottomBtnText}>Back</Text>
-              </TouchableOpacity>
-            ) : (
-              <Text style={[{width: 85}]}></Text>
-            )}
-            <View
-              style={[
-                styles.bottomBtn,
-                {
-                  backgroundColor: '#C3CFE0',
-                  width: ratio.widthPixel(129),
-                  borderRadius: 100,
-                },
-              ]}>
-              <TouchableOpacity
-                onPress={() => {
-                  navigation.navigate('Booking');
-                }}>
-                <Text style={styles.bottomBtnText}>Learn more</Text>
+                <Text style={styles.bottomBtnText}>Next</Text>
               </TouchableOpacity>
             </View>
-            <TouchableOpacity style={styles.bottomBtn} onPress={handleChange}>
-              <Text style={styles.bottomBtnText}>Next</Text>
-            </TouchableOpacity>
-          </View>
-        ) : (
-          <View style={styles.dock}>
-            <ImageBackground
-              style={styles.dockImage}
-              source={require('../assets/images/homeDock.png')}>
-              <TouchableOpacity>
-                <Image
-                  style={styles.dockIcon}
-                  source={require('../assets/images/icon/home.png')}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <Image
-                  style={styles.dockIcon}
-                  source={require('../assets/images/icon/searchWhite.png')}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <Image
-                  style={styles.dockIcon}
-                  source={require('../assets/images/icon/location.png')}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <Image
-                  style={styles.dockIcon}
-                  source={require('../assets/images/icon/account.png')}
-                />
-              </TouchableOpacity>
-            </ImageBackground>
-            <Image
-              style={styles.dockBtn}
-              source={require('../assets/images/icon/dockBtn.png')}
-            />
-          </View>
-        )}
-        {/* dock */}
+          )}
+        </View>
       </ScrollView>
-      {/* </ScrollView> */}
       {/* ---------------2nd section---------------- */}
+      {/* dock */}
+      {!read && (
+        <View style={styles.dock}>
+          <ImageBackground
+            style={styles.dockImage}
+            source={require('../assets/images/homeDock.png')}>
+            <TouchableOpacity>
+              <Image
+                style={styles.dockIcon}
+                source={require('../assets/images/icon/home.png')}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <Image
+                style={styles.dockIcon}
+                source={require('../assets/images/icon/searchWhite.png')}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <Image
+                style={styles.dockIcon}
+                source={require('../assets/images/icon/location.png')}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <Image
+                style={styles.dockIcon}
+                source={require('../assets/images/icon/account.png')}
+              />
+            </TouchableOpacity>
+          </ImageBackground>
+          <Image
+            style={styles.dockBtn}
+            source={require('../assets/images/icon/dockBtn.png')}
+          />
+        </View>
+      )}
+      {/* dock */}
     </SafeAreaView>
   );
 };
@@ -262,7 +267,6 @@ const styles = StyleSheet.create({
     color: '#313033',
     fontSize: ratio.fontPixel(14),
     fontFamily: FontFamily.poppinsMedium,
-    fontWeight: '500',
     lineHeight: ratio.fontPixel(20),
     letterSpacing: ratio.fontPixel(0.1),
   },
@@ -279,7 +283,6 @@ const styles = StyleSheet.create({
   },
   details: {
     fontSize: ratio.fontPixel(14),
-    // fontWeight: '500',
     lineHeight: ratio.fontPixel(20),
     letterSpacing: ratio.fontPixel(0.1),
     color: Color.black,
@@ -300,7 +303,9 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   infoContainer: {
-    flex: 1,
+    paddingBottom: ratio.widthPixel(100),
+    // flex: 1,
+    height: '100%',
     backgroundColor: Color.secondary,
     marginTop: 7.97,
     borderTopLeftRadius: 30,
@@ -310,10 +315,9 @@ const styles = StyleSheet.create({
   },
   btnText: {
     fontSize: ratio.fontPixel(14),
-    fontWeight: '500',
     lineHeight: ratio.fontPixel(24),
     letterSpacing: ratio.fontPixel(0.1),
-    fontFamily: FontFamily.poppinsRegular,
+    fontFamily: FontFamily.poppinsMedium,
     color: Color.white,
   },
   btn: {
@@ -325,7 +329,6 @@ const styles = StyleSheet.create({
     backgroundColor: Color.primary,
     alignItems: 'center',
     justifyContent: 'center',
-    elevation: 20,
   },
   btnContainer: {
     alignItems: 'center',
@@ -386,10 +389,9 @@ const styles = StyleSheet.create({
     height: ratio.widthPixel(36),
   },
   topText: {
-    fontFamily: FontFamily.poppinsRegular,
+    fontFamily: FontFamily.poppinsBold,
     color: Color.black,
     fontSize: ratio.fontPixel(16),
-    fontWeight: '600',
   },
 });
 

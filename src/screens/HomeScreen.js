@@ -19,6 +19,7 @@ const HomeScreen = ({navigation}) => {
 
   const [currentScreen, setCurrentScreen] = useState(0);
   const [read, setRead] = useState(false);
+  const [btnHover, setBtnHover] = useState(false);
 
   const placesEdited = places.slice(currentScreen, currentScreen + 1);
 
@@ -117,7 +118,9 @@ const HomeScreen = ({navigation}) => {
           {/* input */}
           {/* btn */}
           <View style={styles.btnContainer}>
-            <TouchableOpacity style={styles.btn}>
+            <TouchableOpacity
+              onPress={() => setBtnHover(!btnHover)}
+              style={btnHover ? [styles.btn, styles.btnHover] : styles.btn}>
               <Text style={styles.btnText}>Search</Text>
             </TouchableOpacity>
           </View>
@@ -320,15 +323,21 @@ const styles = StyleSheet.create({
     fontFamily: FontFamily.poppinsMedium,
     color: Color.white,
   },
+  btnHover: {
+    elevation: 25,
+    backgroundColor: Color.grey,
+  },
   btn: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 17,
     width: ratio.widthPixel(136),
     height: ratio.widthPixel(44),
-    paddingHorizontal: 30,
-    paddingVertical: 10,
-    borderRadius: 20,
     backgroundColor: Color.primary,
-    alignItems: 'center',
-    justifyContent: 'center',
+    borderRadius: 24,
+    paddingVertical: 10,
+    paddingHorizontal: 30,
   },
   btnContainer: {
     alignItems: 'center',

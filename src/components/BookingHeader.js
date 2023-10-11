@@ -4,10 +4,7 @@ import ratio from '../styles/consts/ratio';
 const BookingHeader = () => {
   return (
     <View style={styles.headContainer}>
-      <TouchableOpacity
-        onPress={() => {
-          navigation.goBack();
-        }}>
+      <TouchableOpacity>
         <Image
           style={styles.headerIcon}
           source={require('../assets/images/icon/backBtn.png')}

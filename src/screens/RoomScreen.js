@@ -138,24 +138,30 @@ const RoomScreen = ({navigation}) => {
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.rewBtn}>
                   <Text style={[styles.detBtnText, {color: Color.black}]}>
-                    Review
+                    Reviews
                   </Text>
                 </TouchableOpacity>
               </View>
               <TouchableOpacity onPress={() => setReadMore(!readMore)}>
-                <Text style={styles.bottomText}>
-                  Surrounded by rice fields, Villa Kayu Lama offers a peaceful
-                  retreat in Ubud. Guests can take a leisurely swim in the
-                  privat...{' '}
-                  {!readMore && (
-                    <Text style={{color: Color.black}}>Read More</Text>
-                  )}
-                </Text>
-                {readMore && (
+                {!readMore ? (
+                  <Text style={styles.bottomText}>
+                    Surrounded by rice fields, Villa Kayu Lama offers a peaceful
+                    retreat in Ubud. Guests can take a leisurely swim in the
+                    privat...{' '}
+                    {!readMore && (
+                      <Text style={{color: Color.black}}>Read More</Text>
+                    )}
+                  </Text>
+                ) : (
                   <Text style={styles.bottomText}>
                     Surrounded by rice fields, Villa Kayu Lama offers a peaceful
                     retreat in Ubud. Guests can take a leisurely swim in the
                     private
+                    <Text>
+                      pools or enjoy relaxing in-villa massages. Free shuttles
+                      to Ubud centre is available thrice a day based on
+                      schedule.
+                    </Text>
                   </Text>
                 )}
               </TouchableOpacity>
@@ -190,24 +196,28 @@ const RoomScreen = ({navigation}) => {
           </ScrollView>
         </View>
       </ScrollView>
-      <View style={styles.dock}>
-        <View>
-          <Text style={styles.nightText}>
-            $60<Text style={{fontSize: ratio.fontPixel(16)}}>/Night</Text>
-          </Text>
+      {!readMore && (
+        <View style={styles.dockContainer}>
+          <View style={styles.dock}>
+            <View>
+              <Text style={styles.nightText}>
+                $60<Text style={{fontSize: ratio.fontPixel(16)}}>/Night</Text>
+              </Text>
+            </View>
+            <TouchableOpacity
+              style={styles.conBtn}
+              onPress={() => {
+                navigation.navigate('Room');
+              }}>
+              <Text style={styles.conBtnText}>Book Now</Text>
+              <Image
+                style={{width: ratio.widthPixel(15)}}
+                source={require('../assets/images/icon/rightArrow.png')}
+              />
+            </TouchableOpacity>
+          </View>
         </View>
-        <TouchableOpacity
-          style={styles.conBtn}
-          onPress={() => {
-            navigation.navigate('Room');
-          }}>
-          <Text style={styles.conBtnText}>Book Now</Text>
-          <Image
-            style={{width: ratio.widthPixel(15)}}
-            source={require('../assets/images/icon/rightArrow.png')}
-          />
-        </TouchableOpacity>
-      </View>
+      )}
     </View>
   );
 };
@@ -251,6 +261,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    elevation: 30,
+  },
+  dockContainer: {
+    height: ratio.widthPixel(110),
+    width: '100%',
+    position: 'absolute',
+    borderRadius: 40,
+    // shadowColor: Color.red,
+    elevation: 15,
+    bottom: 0,
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   mapImage: {
     width: ratio.widthPixel(320),
@@ -258,6 +280,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   mapImageContainer: {
+    Bottom: 200,
     elevation: 25,
     borderRadius: 1,
     paddingHorizontal: 20,
@@ -291,7 +314,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   facilitiesContainer: {
-    paddingVertical: 10,
+    paddingBottom: 10,
     gap: 10,
   },
   bottomText: {

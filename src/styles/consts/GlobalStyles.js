@@ -16,4 +16,5 @@ export const Color = {
   bGrey: '#625B71',
   red: 'red',
   yellow: '#F9B908',
+  misc: '#C9D4E4',
 };

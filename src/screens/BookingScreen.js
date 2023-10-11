@@ -61,27 +61,28 @@ const BookingScreen = ({navigation}) => {
             contentContainerStyle={{paddingHorizontal: 20}}
             style={styles.TabsContainer}>
             <TouchableOpacity
-              style={styles.Tab}
+              style={[currentScreen == 0 ? styles.activeTab : styles.Tab]}
               onPress={() => {
                 setCurrentScreen(0);
               }}>
               <Text style={styles.categoryTabText}>Hotels</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={styles.Tab}
+              style={[currentScreen == 1 ? styles.activeTab : styles.Tab]}
               onPress={() => {
                 setCurrentScreen(1);
               }}>
               <Text style={styles.categoryTabText}>Foods</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={styles.Tab}
+              style={[currentScreen == 2 ? styles.activeTab : styles.Tab]}
               onPress={() => {
                 setCurrentScreen(2);
               }}>
               <Text style={styles.categoryTabText}>Activities</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.Tab}>
+            <TouchableOpacity
+              style={[currentScreen == 3 ? styles.activeTab : styles.Tab]}>
               <Text style={styles.categoryTabText}>Community</Text>
             </TouchableOpacity>
           </ScrollView>
@@ -147,8 +148,16 @@ const BookingScreen = ({navigation}) => {
                             ? [styles.image, {transform: 'scale(1.2)'}]
                             : styles.image
                         }
-                        source={item.image}>
-                        <View style={styles.imageOverlay}>
+                        source={item.imageOne}>
+                        <View
+                          style={
+                            overlayHover
+                              ? [
+                                  styles.imageOverlay,
+                                  {backgroundColor: 'rgba(0,0,0,0)'},
+                                ]
+                              : styles.imageOverlay
+                          }>
                           <Text style={styles.overlayText}>10+</Text>
                         </View>
                       </ImageBackground>
@@ -198,12 +207,6 @@ const BookingScreen = ({navigation}) => {
 
 const styles = StyleSheet.create({
   conBtn: {
-    fontFamily: FontFamily.poppinsSemiBold,
-    fontSize: ratio.fontPixel(17),
-    lineHeight: ratio.fontPixel(17.652),
-    color: Color.white,
-  },
-  conBtn: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
@@ -245,6 +248,11 @@ const styles = StyleSheet.create({
     width: ratio.widthPixel(136),
     height: ratio.widthPixel(187),
   },
+  overlayText: {
+    color: Color.white,
+    fontSize: ratio.fontPixel(17),
+    fontFamily: FontFamily.poppinsMedium,
+  },
   imageOverlay: {
     borderRadius: 20,
     backgroundColor: 'rgba(0,0,0,0.5)',
@@ -280,6 +288,7 @@ const styles = StyleSheet.create({
   rating_Text: {
     fontFamily: FontFamily.poppinsBold,
     color: Color.black,
+    fontSize: ratio.fontPixel(13.54),
   },
   cardContainer: {
     paddingHorizontal: 20,
@@ -300,6 +309,17 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     paddingVertical: 10,
     backgroundColor: Color.white,
+    // width: ratio.widthPixel(99),
+    height: ratio.heightPixel(40),
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 100,
+    marginHorizontal: 10,
+  },
+  activeTab: {
+    paddingHorizontal: 24,
+    paddingVertical: 10,
+    backgroundColor: Color.misc,
     // width: ratio.widthPixel(99),
     height: ratio.heightPixel(40),
     justifyContent: 'center',

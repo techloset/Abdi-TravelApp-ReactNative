@@ -6,10 +6,7 @@ const RoomHeader = () => {
   return (
     <View style={styles.headContainer}>
       <View style={styles.rightHeader}>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.goBack();
-          }}>
+        <TouchableOpacity>
           <Image
             style={styles.headerIcon}
             source={require('../assets/images/icon/backBtn.png')}
